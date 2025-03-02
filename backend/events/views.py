@@ -19,10 +19,13 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # Public read, only logged-in users can create/update
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)  # Automatically assign creator
+        user = self.request.user
+        if user.role != 'organizer':  # Only allow organizers to create events
+            raise PermissionDenied("You must be an organizer to create an event.")
+        serializer.save(created_by=user)
 
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()

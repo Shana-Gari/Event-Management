@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
+import Navbar from "./Component/Navbar";
+import Footer from "./Component/Footer";
+
+
 import Home from "./Pages/Home";
 
 function App() {
@@ -13,9 +22,15 @@ function App() {
 
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-            </Routes>
+            <div className="d-flex flex-column min-vh-100">
+                <Navbar />
+                <div className="flex-grow-1">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                    </Routes>
+                </div>
+                <Footer />
+            </div>
         </Router>
     );
 }
