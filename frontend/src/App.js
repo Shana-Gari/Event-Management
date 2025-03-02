@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Home from "./Pages/Home";
 
 function App() {
     const [events, setEvents] = useState([]);
@@ -11,15 +12,11 @@ function App() {
     }, []);
 
     return (
-        <div>
-            <h1>Upcoming Events</h1>
-            {events.map(event => (
-                <div key={event.id}>
-                    <h2>{event.title}</h2>
-                    <p>{event.description}</p>
-                </div>
-            ))}
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Router>
     );
 }
 
