@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import Event, Registration
 
 class EventSerializer(serializers.ModelSerializer):
+    created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Event
-        fields = '__all__'  # Include all fields
+        fields = '__all__'
 
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
