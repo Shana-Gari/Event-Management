@@ -55,6 +55,12 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True #Allows frontend to access API
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
