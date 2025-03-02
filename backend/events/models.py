@@ -21,6 +21,7 @@ class Event(models.Model):
         ("Completed", "Completed")
     ])
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Updated
+    poster = models.ImageField(upload_to='event_posters/', null=True, blank=True) 
 
 class Registration(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Updated
