@@ -1,0 +1,48 @@
+/* Dark Theme Background */
+.home-container {
+    background-color: #16322f;  /* Dark Background */
+    min-height: 100vh;  /* Ensure it covers full screen */
+    padding: 40px 0;
+}
+
+/* Section Headings */
+.home-title {
+    color: #f8d210;  /* Yellow Contrast */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Event Cards */
+.event-card {
+    background-color: #1e1e1e;  /* Dark Grey */
+    color: #ffffff;  /* Light Text */
+    border: 1px solid #444;  /* Subtle Border */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.event-card:hover {
+    transform: scale(1.02);  /* Slight Scale on Hover */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.register-btn {
+    background-color: #f8d210;  /* Yellow */
+    color: #121212;  /* Dark Text */
+    font-weight: bold;
+    border: none;
+}
+
+.register-btn:hover {
+    background-color: #ffd700;  /* Lighter Yellow */
+}
+
+/* No Events Text */
+.no-events {
+    color: #00bfff;  /* Red for Attention */
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}

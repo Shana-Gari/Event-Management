@@ -1,0 +1,54 @@
+/* Background Color*/
+.event-details-container {
+    background: linear-gradient(to right, #004e92, #000428);  /* Dark Blue Gradient */
+    min-height: 100vh;
+    padding: 40px 0;
+    color: #ffffff;
+}
+
+/* Title Styling */
+.event-title {
+    color: #ffcc00;  /* Gold Contrast */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #000428;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    color: #ffffff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Event Poster */
+.event-poster {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Placeholder for No Image */
+.no-image {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 50px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+/* Loading Text */
+.loading {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #ffcc00;
+    font-weight: bold;
+}

@@ -16,7 +16,8 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]  # Allow public user registration
 
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
+    # queryset = Event.objects.all()
+    queryset = Event.objects.filter(status="Upcoming") 
     serializer_class = EventSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # Public read, only logged-in users can create/update

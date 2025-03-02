@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +10,7 @@ import Footer from "./Component/Footer";
 
 
 import Home from "./Pages/Home";
+import EventDetails from "./Pages/EventDetails";
 
 function App() {
     const [events, setEvents] = useState([]);
@@ -27,6 +28,7 @@ function App() {
                 <div className="flex-grow-1">
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/event/:id" element={<EventDetails />} />
                     </Routes>
                 </div>
                 <Footer />

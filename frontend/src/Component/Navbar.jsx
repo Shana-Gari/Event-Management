@@ -16,7 +16,7 @@ const Navbar = () => {
 
                     {/* Department Name (Center Section) */}
                     <div className="col-lg-4 text-center">
-                        <span className="text-white fw-bold fs-5">Department of M.C.A.</span>
+                        <span className="text-warning fw-bold fs-5">Department of M.C.A.</span>
                     </div>
 
                     {/* Login & Signup Buttons (Right Section) */}
