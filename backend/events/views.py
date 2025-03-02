@@ -1,9 +1,19 @@
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Event, Registration
-from .serializers import EventSerializer, RegistrationSerializer
+from .serializers import EventSerializer, RegistrationSerializer, CustomUserSerializer
 
+from rest_framework.permissions import AllowAny
+
+
+User = get_user_model()
+
+class CustomUserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = CustomUserSerializer
+    permission_classes = [AllowAny]  # Allow public user registration
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
