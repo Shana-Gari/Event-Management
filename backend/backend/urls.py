@@ -14,29 +14,27 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from events.views import EventViewSet, RegistrationViewSet
-from events.views import CustomUserViewSet  # Import the user viewset
+from events.views import EventViewSet, RegistrationViewSet, CustomUserViewSet
 
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
 router.register(r'registrations', RegistrationViewSet)
-router.register(r'users', CustomUserViewSet)  # Add user routes
-
+router.register(r'users', CustomUserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),  # API routes
-
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 # Serve media files during development
-if settings.DEBUG:  
+if settings.DEBUG: 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

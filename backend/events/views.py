@@ -6,24 +6,27 @@ from .models import Event, Registration
 from .serializers import EventSerializer, RegistrationSerializer, CustomUserSerializer
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import AllowAny
-
+from rest_framework.exceptions import PermissionDenied
 
 User = get_user_model()
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [IsAuthenticated]  # Allow public user registration
+    permission_classes = [AllowAny]  # Allow public user registration
 
 class EventViewSet(viewsets.ModelViewSet):
     # queryset = Event.objects.all()
     queryset = Event.objects.filter(status="Upcoming") 
     serializer_class = EventSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # Public read, only logged-in users can create/update
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)  # Automatically assign creator
+        user = self.request.user
+        if user.role != 'organizer':  # Only allow organizers to create events
+            raise PermissionDenied("You must be an organizer to create an event.")
+        serializer.save(created_by=user)
 
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()

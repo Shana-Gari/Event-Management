@@ -5,14 +5,18 @@ from .models import Event, Registration
 User = get_user_model()  # Fetch the custom user model before using it
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)  # Hide password in response
+    password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User  # Use dynamically fetched User model
+        model = User
         fields = ['id', 'username', 'email', 'password', 'role']
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)  # Hash password automatically
+        if validated_data.get('role') == 'organizer':
+            user = self.context['request'].user
+            if user.role != 'admin':  # Only allow admins to create organizers
+                raise serializers.ValidationError("Only admins can create organizers.")
+        user = User.objects.create_user(**validated_data)
         return user
 
 class EventSerializer(serializers.ModelSerializer):
@@ -23,7 +27,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)  # Make user field read-only
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
     
     class Meta:
         model = Registration

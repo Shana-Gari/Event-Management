@@ -4,21 +4,14 @@ from .models import CustomUser, Event, Registration
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+    list_display = ('username', 'email', 'role', 'is_staff', 'is_active')  # Display relevant fields
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('role',)}),
+        (None, {'fields': ('role',)}),  # Add the role field to the form
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('role',)}),  # Add the role field when adding a user
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
-
-# Register Event model with a list display for better overview in the admin
-@admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'venue', 'status', 'created_by')
-    search_fields = ('title', 'venue')
-    list_filter = ('status', 'created_by')
-
-# Register Registration model
-@admin.register(Registration)
-class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'event', 'registered_at')
-    search_fields = ('user__username', 'event__title')
+admin.site.register(Event)
+admin.site.register(Registration)
