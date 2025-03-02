@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ] + MIDDLEWARE #Enable CORS
 
+CORS_ALLOW_ALL_ORIGINS = True #Allows frontend to access API
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
