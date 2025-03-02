@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Event, Registration
 from .serializers import EventSerializer, RegistrationSerializer, CustomUserSerializer
-
+from .permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import AllowAny
 
 
@@ -13,13 +13,13 @@ User = get_user_model()
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [AllowAny]  # Allow public user registration
-    
+    permission_classes = [IsAuthenticated]  # Allow public user registration
+
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]  # Public read, only logged-in users can create/update
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]  # Public read, only logged-in users can create/update
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)  # Automatically assign creator
