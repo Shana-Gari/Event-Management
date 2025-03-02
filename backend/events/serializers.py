@@ -1,5 +1,19 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Event, Registration
+
+User = get_user_model()  # Fetch the custom user model before using it
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)  # Hide password in response
+
+    class Meta:
+        model = User  # Use dynamically fetched User model
+        fields = ['id', 'username', 'email', 'password', 'role']
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)  # Hash password automatically
+        return user
 
 class EventSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -9,6 +23,8 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)  # Make user field read-only
+    
     class Meta:
         model = Registration
         fields = '__all__'
