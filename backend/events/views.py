@@ -18,3 +18,6 @@ class RegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = RegistrationSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]  # Only logged-in users can register
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)  # Assign authenticated user
