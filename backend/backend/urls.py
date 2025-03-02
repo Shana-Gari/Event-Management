@@ -19,10 +19,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from events.views import EventViewSet, RegistrationViewSet
+from events.views import CustomUserViewSet  # Import the user viewset
 
 router = DefaultRouter()
 router.register(r'events', EventViewSet)
 router.register(r'registrations', RegistrationViewSet)
+router.register(r'users', CustomUserViewSet)  # Add user routes
 
 
 urlpatterns = [
