@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser  # Only import AbstractUser
+from django.contrib.auth.models import AbstractUser
 
-class CustomUser(AbstractUser):  # Define Custom User Model
+class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('admin', 'Admin'),
         ('organizer', 'Organizer'),
@@ -20,10 +20,10 @@ class Event(models.Model):
         ("Ongoing", "Ongoing"),
         ("Completed", "Completed")
     ])
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Updated
-    poster = models.ImageField(upload_to='event_posters/', null=True, blank=True) 
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    poster = models.ImageField(upload_to='event_posters/', null=True, blank=True)
 
 class Registration(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Updated
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     registered_at = models.DateTimeField(auto_now_add=True)
