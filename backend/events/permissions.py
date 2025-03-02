@@ -1,7 +1,8 @@
 from rest_framework.permissions import BasePermission
 
-class IsOwnerOrReadOnly(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in ['GET', 'HEAD', 'OPTIONS']:
-            return True  # Allow read access to everyone
-        return obj.created_by == request.user  # Only creator can edit/delete
+class IsAdminOrOrganizer(BasePermission):
+    def has_permission(self, request, view):
+        # Only allow admins or organizers to create events
+        if request.method == 'POST':  # Creating events
+            return request.user.role == 'admin' or request.user.role == 'organizer'
+        return True  # Allow GET, HEAD, and OPTIONS requests
