@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-] + MIDDLEWARE #Enable CORS
+]
 
 CORS_ALLOW_ALL_ORIGINS = True #Allows frontend to access API
 
